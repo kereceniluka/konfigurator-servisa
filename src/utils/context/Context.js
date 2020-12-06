@@ -6,8 +6,23 @@ export const ContextProvider = ({ children }) => {
     
     const [state, setState] = useState({
         openModal: false,
-        currStep: 3,
+        currStep: 1,
         manufacturer: '',
+        services: [],
+        coupon: {
+            isOpen: false,
+            isValid: false,
+            validCoupons: [
+                { id: 1, value: 'Tokić123', discount: 30 },
+            ],
+        },
+        personalInfo: {
+            name: '',
+            email: '',
+            telNumber: '',
+            remark: '',
+        },
+        totalServicePrice: 0,
     });
     
     return (
