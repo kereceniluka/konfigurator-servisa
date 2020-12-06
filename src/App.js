@@ -1,9 +1,16 @@
 import React from 'react';
 
+// pages
+import Home from './pages/Home';
+
+// utils
+import { ContextProvider } from './utils/context/Context';
+
 const App = () => {
   return (
-    <div className="App">
-    </div>
+    <ContextProvider>
+      <Home />
+    </ContextProvider>
   );
 }
 

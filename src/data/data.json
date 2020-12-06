@@ -1,0 +1,98 @@
+{
+    "manufacturers": [
+        {
+            "id": 1,
+            "name": "Peugeot"
+        },
+        {
+            "id": 2,
+            "name": "Volkswagen"
+        },
+        {
+            "id": 3,
+            "name": "Citroen"
+        },
+        {
+            "id": 4,
+            "name": "Audi"
+        },
+        {
+            "id": 5,
+            "name": "Bmw"
+        },
+        {
+            "id": 6,
+            "name": "Seat"
+        },
+        {
+            "id": 7,
+            "name": "Alfa Romeo"
+        },
+        {
+            "id": 8,
+            "name": "Kia"
+        },
+        {
+            "id": 9,
+            "name": "Hyundai"
+        },
+        {
+            "id": 10,
+            "name": "Honda"
+        },
+        {
+            "id": 11,
+            "name": "Toyota"
+        }
+    ],
+    "steps": [
+        {
+            "stepNum": 1,
+            "title": "Odaberite proizvođača vašeg vozila"
+        },
+        {
+            "stepNum": 2,
+            "title": "Odaberite jednu ili više usluga za koje ste"
+        },
+        {
+            "stepNum": 3,
+            "title": "Vaši kontakt podaci"
+        },
+        {
+            "stepNum": 4,
+            "title": "Pregled i potvrda vašeg odabira"
+        }
+    ],
+    "services": [
+        {
+            "id": 1,
+            "label": "Zamjena ulja i filtera",
+            "price": 500 
+        },
+        {
+            "id": 2,
+            "label": "Promjena pakni",
+            "price": 450 
+        },
+        {
+            "id": 3,
+            "label": "Promjena guma",
+            "price": 100 
+        },
+        {
+            "id": 4,
+            "label": "Servis klima uređaja",
+            "price": 299
+        },
+        {
+            "id": 5,
+            "label": "Balansiranje guma",
+            "price": 50 
+        },
+        {
+            "id": 6,
+            "label": "Zamjena ulja u kočnicama",
+            "price": 229 
+        }
+    ]
+}
