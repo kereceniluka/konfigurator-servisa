@@ -1,23 +1,60 @@
 import React, { useContext } from 'react';
-import { ModalBody, ModalHeader, ModalTitle, CloseIcon, ModalContent } from './FormModalStyle';
+import { ModalBody, ModalHeader, ModalTitle, CloseIcon, ModalStepTitle, ModalContent, ModalNavigation } from './FormModalStyle';
 
 // material-ui
-import { Modal } from '@material-ui/core';
+import { Modal, Button, makeStyles } from '@material-ui/core';
 
-// components
-import FormStepper from '../FormStepper/FormStepper';
-import Manufacturers from '../Forms/Manufacturers/Manufacturers';
+// data
+import { steps } from '../../data/data.json';
 
 // utils
 import { Context } from '../../utils/context/Context';
 
-const FormModal = () => {
+const useStyle = makeStyles({
+    button: {
+        margin: '0 5px',
+    }
+});
+
+const FormModal = ({ children }) => {
+
+    const classes = useStyle();
 
     const [state, setState] = useContext(Context);
 
     const handleCloseModal = () => {
         setState({ ...state, openModal: false });
     };
+
+    const handleNextStep = () => {
+        setState({ ...state, currStep: state.currStep + 1 });
+    }
+
+    const handlePrevStep = () => {
+        setState({ ...state, currStep: state.currStep - 1 });
+    }
+
+    const handleNavButtons = ({ currStep, manufacturer, services }) => {
+        if(currStep === 1) {
+            return <Button className={classes.button} disabled={!manufacturer} variant="contained" size="small" color="primary" onClick={handleNextStep}>Dalje</Button>;
+        }
+        else if(currStep > 1 && currStep < 4) {
+            return (
+                <>
+                    <Button className={classes.button} variant="contained" size="small" color="primary" onClick={handlePrevStep}>Nazad</Button>
+                    <Button className={classes.button} disabled={services.length === 0} variant="contained" size="small" color="primary" onClick={handleNextStep}>Dalje</Button>
+                </>
+            );
+        }
+        else {
+            return (
+                <>
+                    <Button className={classes.button} variant="contained" size="small" color="primary" onClick={handlePrevStep}>Nazad</Button>
+                    <Button className={classes.button} variant="contained" size="small" color="primary">Pošalji</Button>
+                </>
+            );
+        }
+    }
 
     return (
         <div>
@@ -30,10 +67,13 @@ const FormModal = () => {
                     <ModalTitle>Konfigurator servisa</ModalTitle>
                     <CloseIcon onClick={handleCloseModal} />
                 </ModalHeader>
+                {steps.map(({ stepNum, title }) => stepNum === state.currStep && <ModalStepTitle key={stepNum}>{`Korak ${stepNum}. ${title}`}</ModalStepTitle>)}
                 <ModalContent>
-                    <FormStepper />
-                    <Manufacturers />
+                    {children}
                 </ModalContent>
+                <ModalNavigation>
+                    {handleNavButtons(state)}
+                </ModalNavigation>
             </ModalBody>
             </Modal>
         </div>
