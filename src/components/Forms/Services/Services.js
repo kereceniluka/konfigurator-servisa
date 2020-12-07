@@ -33,10 +33,7 @@ const Services = () => {
 
     const classes = useStyles();
 
-    const [state, setState] = useContext(Context);
-
-    const discount = (state.totalServicePrice * 0.3).toFixed(2);
-    const totalPrice = state.totalServicePrice - discount;  
+    const [state, setState] = useContext(Context);  
 
     const handleChangeService = service => {
 
@@ -67,7 +64,7 @@ const Services = () => {
                 <>
                     <SuccessMessage>Hvala vam, unijeli ste ispravan kod kupona</SuccessMessage>
                     <PriceValue><PriceLabel>OSNOVICA: </PriceLabel>{state.totalServicePrice} KN</PriceValue>
-                    <PriceValue><PriceLabel>Popust (30%): </PriceLabel>- {discount} KN</PriceValue>
+                    <PriceValue><PriceLabel>Popust (30%): </PriceLabel>- {state.discountPrice} KN</PriceValue>
                 </>
             );
         }
@@ -78,7 +75,11 @@ const Services = () => {
     
     useEffect(() => {
         const totalServicePrice = state.services.reduce((acc, service) => acc + service.price, 0).toFixed(2);
-        setState({ ...state, totalServicePrice: totalServicePrice });
+        const discount = (totalServicePrice * 0.3).toFixed(2);
+        const totalPrice = (totalServicePrice - discount).toFixed(2);
+
+        setState({ ...state, totalServicePrice: totalServicePrice, discountPrice: discount, totalPrice: totalPrice });
+
     }, [state.services]);
 
     return (
@@ -90,7 +91,7 @@ const Services = () => {
             </FormControl>
             <TotalContainer>
                 {renderComponents(state)}
-                <PriceValue size="big"><PriceLabel size="big">UKUPNO: </PriceLabel>{state.coupon.isValid ? totalPrice : state.totalServicePrice} KN</PriceValue>
+                <PriceValue size="big"><PriceLabel size="big">UKUPNO: </PriceLabel>{state.coupon.isValid ? state.totalPrice : state.totalServicePrice} KN</PriceValue>
             </TotalContainer>
         </>
     );

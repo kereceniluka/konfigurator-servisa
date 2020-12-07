@@ -6,6 +6,7 @@ export const ContextProvider = ({ children }) => {
     
     const [state, setState] = useState({
         openModal: false,
+        openSuccessDialog: false,
         currStep: 1,
         manufacturer: '',
         services: [],
@@ -23,6 +24,8 @@ export const ContextProvider = ({ children }) => {
             remark: '',
         },
         totalServicePrice: 0,
+        discountPrice: 0,
+        totalPrice: 0,
     });
     
     return (
