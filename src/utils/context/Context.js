@@ -23,6 +23,8 @@ export const ContextProvider = ({ children }) => {
             remark: '',
         },
         totalServicePrice: 0,
+        discountPrice: 0,
+        totalPrice: 0,
     });
     
     return (
