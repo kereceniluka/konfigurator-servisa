@@ -6,6 +6,7 @@ export const ContextProvider = ({ children }) => {
     
     const [state, setState] = useState({
         openModal: false,
+        openSuccessDialog: false,
         currStep: 1,
         manufacturer: '',
         services: [],

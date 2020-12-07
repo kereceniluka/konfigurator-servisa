@@ -34,6 +34,10 @@ const FormModal = ({ children }) => {
         setState({ ...state, currStep: state.currStep - 1 });
     }
 
+    const handleOpenSuccessDialog = () => {
+        setState({ ...state, openModal: false, openSuccessDialog: true });
+    }
+
     const handleNavButtons = ({ currStep, manufacturer, services, personalInfo }) => {
         switch(currStep) {
             case 1:
@@ -56,18 +60,17 @@ const FormModal = ({ children }) => {
                 return (
                     <>
                         <Button className={classes.button} variant="contained" size="small" color="primary" onClick={handlePrevStep}>Nazad</Button>
-                        <Button className={classes.button} variant="contained" size="small" color="primary">Pošalji</Button>
+                        <Button className={classes.button} variant="contained" size="small" color="primary" onClick={handleOpenSuccessDialog}>Pošalji</Button>
                     </>
                 );
         }
     }
 
     return (
-        <div>
-            <Modal
-            open={state.openModal}
-            onClose={handleCloseModal}
-            >
+        <Modal
+        open={state.openModal}
+        onClose={handleCloseModal}
+        >
             <ModalBody>
                 <ModalHeader>
                     <ModalTitle>Konfigurator servisa</ModalTitle>
@@ -81,8 +84,7 @@ const FormModal = ({ children }) => {
                     {handleNavButtons(state)}
                 </ModalNavigation>
             </ModalBody>
-            </Modal>
-        </div>
+        </Modal>
     );
 }
 

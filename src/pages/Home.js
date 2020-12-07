@@ -11,6 +11,7 @@ import Manufacturers from '../components/Forms/Manufacturers/Manufacturers';
 import Services from '../components/Forms/Services/Services';
 import PersonalContact from '../components/Forms/PersonalContact/PersonalContact';
 import Overview from '../components/Overview/Overview';
+import SuccessDialog from '../components/SuccessDialog/SuccessDialog';
 
 // utils
 import { Context } from '../utils/context/Context';
@@ -47,6 +48,7 @@ const Home = () => {
                 <FormModal>
                     {handleSwitchForms(state)}
                 </FormModal>
+                <SuccessDialog />
             </PageContainer>
         </>
     );
