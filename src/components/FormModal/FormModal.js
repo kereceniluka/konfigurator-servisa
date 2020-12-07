@@ -34,25 +34,31 @@ const FormModal = ({ children }) => {
         setState({ ...state, currStep: state.currStep - 1 });
     }
 
-    const handleNavButtons = ({ currStep, manufacturer, services }) => {
-        if(currStep === 1) {
-            return <Button className={classes.button} disabled={!manufacturer} variant="contained" size="small" color="primary" onClick={handleNextStep}>Dalje</Button>;
-        }
-        else if(currStep > 1 && currStep < 4) {
-            return (
-                <>
-                    <Button className={classes.button} variant="contained" size="small" color="primary" onClick={handlePrevStep}>Nazad</Button>
-                    <Button className={classes.button} disabled={services.length === 0} variant="contained" size="small" color="primary" onClick={handleNextStep}>Dalje</Button>
-                </>
-            );
-        }
-        else {
-            return (
-                <>
-                    <Button className={classes.button} variant="contained" size="small" color="primary" onClick={handlePrevStep}>Nazad</Button>
-                    <Button className={classes.button} variant="contained" size="small" color="primary">Pošalji</Button>
-                </>
-            );
+    const handleNavButtons = ({ currStep, manufacturer, services, personalInfo }) => {
+        switch(currStep) {
+            case 1:
+                return <Button className={classes.button} disabled={!manufacturer} variant="contained" size="small" color="primary" onClick={handleNextStep}>Dalje</Button>;
+            case 2:
+                return (
+                    <>
+                        <Button className={classes.button} variant="contained" size="small" color="primary" onClick={handlePrevStep}>Nazad</Button>
+                        <Button className={classes.button} disabled={services.length === 0} variant="contained" size="small" color="primary" onClick={handleNextStep}>Dalje</Button>
+                    </>
+                );
+            case 3:
+                return (
+                    <>
+                        <Button className={classes.button} variant="contained" size="small" color="primary" onClick={handlePrevStep}>Nazad</Button>
+                        <Button className={classes.button} disabled={!personalInfo.name || !personalInfo.email || !personalInfo.telNumber} variant="contained" size="small" color="primary" onClick={handleNextStep}>Dalje</Button>
+                    </>
+                );
+            default:
+                return (
+                    <>
+                        <Button className={classes.button} variant="contained" size="small" color="primary" onClick={handlePrevStep}>Nazad</Button>
+                        <Button className={classes.button} variant="contained" size="small" color="primary">Pošalji</Button>
+                    </>
+                );
         }
     }
 
