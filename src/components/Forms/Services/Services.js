@@ -1,8 +1,15 @@
 import React, { useContext, useEffect } from 'react';
-import { TotalContainer, OpenCoupon, SuccessMessage, PriceLabel, PriceValue } from './ServicesStyle';
+import {
+    Form, 
+    CheckboxGroup, 
+    TotalContainer, 
+    OpenCoupon, 
+    SuccessMessage, 
+    PriceValue
+} from './ServicesStyle';
 
 // material-ui
-import { FormControl, FormGroup, FormControlLabel, Checkbox, makeStyles } from '@material-ui/core';
+import { FormControlLabel, Checkbox } from '@material-ui/core';
 
 // data
 import { services } from '../../../data/data.json';
@@ -13,25 +20,7 @@ import Coupons from '../Coupons/Coupons';
 // utils
 import { Context } from '../../../utils/context/Context';
 
-const useStyles = makeStyles({
-    formControl: {
-        width: '100%',
-        display: 'flex',
-        justifySelf: 'flex-start',
-    },
-    formGroup: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(1, 1fr)',
-        gap: 5,
-    },
-    formControlLabel: {
-        margin: 0,
-    }
-});
-
 const Services = () => {
-
-    const classes = useStyles();
 
     const [state, setState] = useContext(Context);  
 
@@ -63,8 +52,8 @@ const Services = () => {
             return (
                 <>
                     <SuccessMessage>Hvala vam, unijeli ste ispravan kod kupona</SuccessMessage>
-                    <PriceValue><PriceLabel>OSNOVICA: </PriceLabel>{state.totalServicePrice} KN</PriceValue>
-                    <PriceValue><PriceLabel>Popust (30%): </PriceLabel>- {state.discountPrice} KN</PriceValue>
+                    <PriceValue bold><PriceValue>OSNOVICA: </PriceValue>{state.totalServicePrice} KN</PriceValue>
+                    <PriceValue bold><PriceValue>Popust (30%): </PriceValue>- {state.discountPrice} KN</PriceValue>
                 </>
             );
         }
@@ -84,14 +73,14 @@ const Services = () => {
 
     return (
         <>
-            <FormControl component="fieldset" className={classes.formControl}>
-                <FormGroup className={classes.formGroup}>
-                    {services.map(service => <FormControlLabel key={service.id} control={<Checkbox checked={state.services.some(item => item.id === service.id)} name={service.label} />} label={`${service.label} (${service.price}kn)`} onChange={() => handleChangeService(service)} className={classes.formControlLabel} />)}
-                </FormGroup>
-            </FormControl>
+            <Form component="fieldset">
+                <CheckboxGroup>
+                    {services.map(service => <FormControlLabel key={service.id} control={<Checkbox checked={state.services.some(item => item.id === service.id)} name={service.label} />} label={`${service.label} (${service.price}kn)`} onChange={() => handleChangeService(service)} />)}
+                </CheckboxGroup>
+            </Form>
             <TotalContainer>
                 {renderComponents(state)}
-                <PriceValue size="big"><PriceLabel size="big">UKUPNO: </PriceLabel>{state.coupon.isValid ? state.totalPrice : state.totalServicePrice} KN</PriceValue>
+                <PriceValue size="big" bold><PriceValue size="big">UKUPNO: </PriceValue>{state.coupon.isValid ? state.totalPrice : state.totalServicePrice} KN</PriceValue>
             </TotalContainer>
         </>
     );

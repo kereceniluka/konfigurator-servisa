@@ -64,7 +64,7 @@ const PersonalContact = () => {
                     value={state.personalInfo.remark}
                     onChange={(e) => setState({ ...state, personalInfo: { ...state.personalInfo, remark: e.target.value } })}
                     multiline
-                    rows="2"
+                    rows="6"
                 />
             </FormControl>
         </Container>
