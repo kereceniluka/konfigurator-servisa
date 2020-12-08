@@ -1,26 +1,62 @@
-import React, { useContext } from 'react';
-import { ModalBody, ModalHeader, ModalTitle, CloseIcon, ModalStepTitle, ModalContent, ModalNavigation } from './FormModalStyle';
+import React, { useContext, useEffect } from 'react';
+import {
+    ModalBody, 
+    ModalHeader, 
+    ModalTitle, 
+    CloseIcon, 
+    ModalStepTitle, 
+    ModalContent, 
+    ModalNavigation,
+    NavButton,
+} from './FormModalStyle';
 
 // material-ui
-import { Modal, Button, makeStyles } from '@material-ui/core';
+import { Modal } from '@material-ui/core';
 
 // data
 import { steps } from '../../data/data.json';
 
 // utils
 import { Context } from '../../utils/context/Context';
-
-const useStyle = makeStyles({
-    button: {
-        margin: '0 5px',
-    }
-});
+import useKey from '../../utils/hooks/useKey';
 
 const FormModal = ({ children }) => {
 
-    const classes = useStyle();
-
     const [state, setState] = useContext(Context);
+
+    const arrowLeft = useKey('ArrowLeft');
+    const arrowRight = useKey('ArrowRight');
+
+    const handleKeyboardNav = () => {
+        if(state.currStep === 1 && arrowRight && state.manufacturer) {
+            setState({ ...state, currStep: state.currStep + 1 });
+        }
+        else if(state.currStep === 2) {
+            if(arrowRight && state.services.length !== 0) {
+                setState({ ...state, currStep: state.currStep + 1 });
+            }
+            else if(arrowLeft) {
+                setState({ ...state, currStep: state.currStep - 1 });
+            }
+        }
+        else if(state.currStep === 3) {
+            if(arrowRight && state.personalInfo.name && state.personalInfo.email && state.personalInfo.telNumber) {
+                setState({ ...state, currStep: state.currStep + 1 });
+            }
+            else if(arrowLeft) {
+                setState({ ...state, currStep: state.currStep - 1 });
+            }
+        }
+        else if(state.currStep === 4) {
+            if(arrowLeft) {
+                setState({ ...state, currStep: state.currStep - 1 });
+            }
+        }
+    }
+
+    useEffect(() => {
+        handleKeyboardNav();
+    }, [arrowLeft, arrowRight]);
 
     const handleCloseModal = () => {
         setState({ ...state, openModal: false });
@@ -41,26 +77,26 @@ const FormModal = ({ children }) => {
     const handleNavButtons = ({ currStep, manufacturer, services, personalInfo }) => {
         switch(currStep) {
             case 1:
-                return <Button className={classes.button} disabled={!manufacturer} variant="contained" size="small" color="primary" onClick={handleNextStep}>Dalje</Button>;
+                return <NavButton disabled={!manufacturer} variant="contained" size="medium" color="primary" onClick={handleNextStep}>Dalje</NavButton>;
             case 2:
                 return (
                     <>
-                        <Button className={classes.button} variant="contained" size="small" color="primary" onClick={handlePrevStep}>Nazad</Button>
-                        <Button className={classes.button} disabled={services.length === 0} variant="contained" size="small" color="primary" onClick={handleNextStep}>Dalje</Button>
+                        <NavButton variant="contained" size="medium" color="primary" onClick={handlePrevStep}>Nazad</NavButton>
+                        <NavButton disabled={services.length === 0} variant="contained" size="medium" color="primary" onClick={handleNextStep}>Dalje</NavButton>
                     </>
                 );
             case 3:
                 return (
                     <>
-                        <Button className={classes.button} variant="contained" size="small" color="primary" onClick={handlePrevStep}>Nazad</Button>
-                        <Button className={classes.button} disabled={!personalInfo.name || !personalInfo.email || !personalInfo.telNumber} variant="contained" size="small" color="primary" onClick={handleNextStep}>Dalje</Button>
+                        <NavButton variant="contained" size="medium" color="primary" onClick={handlePrevStep}>Nazad</NavButton>
+                        <NavButton disabled={!personalInfo.name || !personalInfo.email || !personalInfo.telNumber} variant="contained" size="medium" color="primary" onClick={handleNextStep}>Dalje</NavButton>
                     </>
                 );
             default:
                 return (
                     <>
-                        <Button className={classes.button} variant="contained" size="small" color="primary" onClick={handlePrevStep}>Nazad</Button>
-                        <Button className={classes.button} variant="contained" size="small" color="primary" onClick={handleOpenSuccessDialog}>Pošalji</Button>
+                        <NavButton variant="contained" size="medium" color="primary" onClick={handlePrevStep}>Nazad</NavButton>
+                        <NavButton variant="contained" size="medium" color="primary" onClick={handleOpenSuccessDialog}>Pošalji</NavButton>
                     </>
                 );
         }
@@ -68,10 +104,12 @@ const FormModal = ({ children }) => {
 
     return (
         <Modal
-        open={state.openModal}
-        onClose={handleCloseModal}
+            open={state.openModal}
+            onClose={handleCloseModal}
+            disableEnforceFocus={true}
+            disableBackdropClick={true}
         >
-            <ModalBody>
+            <ModalBody currStep={state.currStep}>
                 <ModalHeader>
                     <ModalTitle>Konfigurator servisa</ModalTitle>
                     <CloseIcon onClick={handleCloseModal} />

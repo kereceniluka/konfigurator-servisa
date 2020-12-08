@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
+import { RadioForm } from './ManufacturersStyle';
 
 // material-ui
-import { FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, makeStyles } from '@material-ui/core';
+import { FormControl, Radio, FormControlLabel, makeStyles } from '@material-ui/core';
 
 // data
 import { manufacturers } from '../../../data/data.json';
@@ -13,14 +14,6 @@ const useStyles = makeStyles({
     formControl: {
         width: '100%',
     },
-    radioGroup: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)',
-        gap: 5,
-    },
-    formControlLabel: {
-        margin: 0,
-    }
 });
 
 const Manufacturers = () => {
@@ -34,10 +27,9 @@ const Manufacturers = () => {
 
     return (
         <FormControl className={classes.formControl} component="fieldset">
-            {/* <FormLabel component="legend">Proizvođači</FormLabel> */}
-            <RadioGroup className={classes.radioGroup} aria-label="manufacturer" name="manufacturer" value={state.manufacturer} onChange={handleChange}>
-                {manufacturers.map(({ id, name }) => <FormControlLabel key={id} className={classes.formControlLabel} value={name} control={<Radio />} label={name} />)}
-            </RadioGroup>
+            <RadioForm aria-label="manufacturer" name="manufacturer" value={state.manufacturer} onChange={handleChange}>
+                {manufacturers.map(({ id, name }) => <FormControlLabel key={id} value={name} control={<Radio />} label={name} />)}
+            </RadioForm>
         </FormControl>
     );
 }

@@ -51,12 +51,7 @@ export const Title = styled.ul `
     }
 `; 
 
-export const Heading = styled.li `
-    font-size: 1.6em;
-    font-weight: bold;
-`;
-
-export const SubHeading = styled.li `
-    font-size: 1em;
+export const TitleItem = styled.li `
+    font-size: ${({ variant }) => variant === 'heading' ? '1.6em' : '1em'};
     font-weight: bold;
 `;
