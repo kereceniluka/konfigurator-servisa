@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ModalBody, ModalHeader, ModalTitle, CloseIcon, ModalStepTitle, ModalContent, ModalNavigation } from './FormModalStyle';
 
 // material-ui
@@ -9,6 +9,7 @@ import { steps } from '../../data/data.json';
 
 // utils
 import { Context } from '../../utils/context/Context';
+import useKey from '../../utils/hooks/useKey';
 
 const useStyle = makeStyles({
     button: {
@@ -21,6 +22,48 @@ const FormModal = ({ children }) => {
     const classes = useStyle();
 
     const [state, setState] = useContext(Context);
+
+    const arrowLeft = useKey('ArrowLeft');
+    const arrowRight = useKey('ArrowRight');
+
+    const handleKeyboardNav = () => {
+        if(state.currStep === 1 && arrowRight && state.manufacturer) {
+            setState({ ...state, currStep: state.currStep + 1 });
+        }
+        else if(state.currStep === 2) {
+            if(arrowRight && state.services.length !== 0) {
+                setState({ ...state, currStep: state.currStep + 1 });
+            }
+            else if(arrowLeft) {
+                setState({ ...state, currStep: state.currStep - 1 });
+            }
+        }
+        else if(state.currStep === 3) {
+            if(arrowRight && state.personalInfo.name && state.personalInfo.email && state.personalInfo.telNumber) {
+                setState({ ...state, currStep: state.currStep + 1 });
+            }
+            else if(arrowLeft) {
+                setState({ ...state, currStep: state.currStep - 1 });
+            }
+        }
+        else if(state.currStep === 3) {
+            if(arrowRight && state.personalInfo.name && state.personalInfo.email && state.personalInfo.telNumber) {
+                setState({ ...state, currStep: state.currStep + 1 });
+            }
+            else if(arrowLeft) {
+                setState({ ...state, currStep: state.currStep - 1 });
+            }
+        }
+        else if(state.currStep === 4) {
+            if(arrowLeft) {
+                setState({ ...state, currStep: state.currStep - 1 });
+            }
+        }
+    }
+
+    useEffect(() => {
+        handleKeyboardNav();
+    }, [arrowLeft, arrowRight]);
 
     const handleCloseModal = () => {
         setState({ ...state, openModal: false });
