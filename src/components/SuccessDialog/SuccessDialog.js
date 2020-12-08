@@ -8,7 +8,7 @@ import {
 } from './SuccessDialogStyle';
 
 // material-ui
-import { Dialog, Button, DialogContent, DialogContentText } from '@material-ui/core'; 
+import { Dialog, Button } from '@material-ui/core'; 
 
 // utils
 import { Context } from '../../utils/context/Context';
