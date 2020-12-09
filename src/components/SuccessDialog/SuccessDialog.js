@@ -12,13 +12,14 @@ import { Dialog, Button } from '@material-ui/core';
 
 // utils
 import { Context } from '../../utils/context/Context';
+import initialState from '../../utils/initialContext';
 
 const SuccessDialog = () => {
 
     const [state, setState] = useContext(Context);
 
     const handleClose = () => {
-        setState({ ...state, openSuccessDialog: false });
+        setState({ ...initialState });
     }
 
     return (
