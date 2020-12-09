@@ -12,12 +12,10 @@ import {
     ServicesCard,
     ServicesList,
     ServicesListItem,
+    SectionFlexWrapper,
     PersonalInfoList,
     PersonalInfoListItem,
 } from './OverviewStyle';
-
-// material-ui
-import { Button } from '@material-ui/core';
 
 // utils
 import { Context } from '../../utils/context/Context';
@@ -62,7 +60,7 @@ const Overview = () => {
                 </div>
             </SectionGrid>
             <SectionFlex>
-                <div>
+                <SectionFlexWrapper>
                     <Header>
                         <Title>KONTAKT PODACI</Title>
                         <EditButton variant="contained" size="small" color="primary" onClick={() => setState({ ...state, currStep: 3 })}>Uredi</EditButton>
@@ -93,7 +91,7 @@ const Overview = () => {
                             <Label bold="true">{state.personalInfo.remark}</Label>
                         </PersonalInfoListItem>
                     </PersonalInfoList>
-                </div>
+                </SectionFlexWrapper>
             </SectionFlex>
         </Container>
     );
