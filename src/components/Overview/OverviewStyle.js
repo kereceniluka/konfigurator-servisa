@@ -118,6 +118,10 @@ export const ServicesListItem = styled.li `
     margin-top: ${({ end }) => end ? '8px' : '2px'};
 `;
 
+export const SectionFlexWrapper = styled.div `
+    width: 100%;
+`;
+
 export const PersonalInfoList = styled.ul `
     width: 100%;
     display: grid;

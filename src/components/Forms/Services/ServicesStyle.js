@@ -57,13 +57,18 @@ export const SuccessMessage = styled.span `
     }
 `;
 
-export const PriceValue = styled.span `
-    font-size: ${({ size }) => size === 'big' ? `1.3em` : `.9em`};
-    font-weight: ${({ bold }) => bold ? 'bold' : 'normal'};
-    color: #000000;
+export const PriceLabel = styled.span `
+    font-size: ${({ size }) => size === 'big' ? '1.4em' : '.9em'};
+    font-weight: normal;
     margin: 4px 0;
-    
+
     ${sizes.desktop} {
         margin: 6px 0;
     }
+`;
+
+export const PriceValue = styled.span `
+    font-size: 1em;
+    font-weight: bold;
+    color: #000000;
 `;

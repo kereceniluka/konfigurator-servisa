@@ -4,7 +4,8 @@ import {
     CheckboxGroup, 
     TotalContainer, 
     OpenCoupon, 
-    SuccessMessage, 
+    SuccessMessage,
+    PriceLabel, 
     PriceValue
 } from './ServicesStyle';
 
@@ -52,8 +53,8 @@ const Services = () => {
             return (
                 <>
                     <SuccessMessage>Hvala vam, unijeli ste ispravan kod kupona</SuccessMessage>
-                    <PriceValue bold><PriceValue>OSNOVICA: </PriceValue>{state.totalServicePrice} KN</PriceValue>
-                    <PriceValue bold><PriceValue>Popust (30%): </PriceValue>- {state.discountPrice} KN</PriceValue>
+                    <PriceLabel>OSNOVICA: <PriceValue> {state.totalServicePrice} KN</PriceValue></PriceLabel>
+                    <PriceLabel>Popust (30%): <PriceValue> - {state.discountPrice} KN</PriceValue></PriceLabel>
                 </>
             );
         }
@@ -75,12 +76,12 @@ const Services = () => {
         <>
             <Form component="fieldset">
                 <CheckboxGroup>
-                    {services.map(service => <FormControlLabel key={service.id} control={<Checkbox checked={state.services.some(item => item.id === service.id)} name={service.label} />} label={`${service.label} (${service.price}kn)`} onChange={() => handleChangeService(service)} />)}
+                    {services.map(service => <FormControlLabel key={service.id} control={<Checkbox checked={state.services.some(item => item.id === service.id)} color="primary" name={service.label} />} label={`${service.label} (${service.price}kn)`} onChange={() => handleChangeService(service)} />)}
                 </CheckboxGroup>
             </Form>
             <TotalContainer>
                 {renderComponents(state)}
-                <PriceValue size="big" bold><PriceValue size="big">UKUPNO: </PriceValue>{state.coupon.isValid ? state.totalPrice : state.totalServicePrice} KN</PriceValue>
+                <PriceLabel size="big">UKUPNO: <PriceValue>{state.coupon.isValid ? state.totalPrice : state.totalServicePrice} KN</PriceValue></PriceLabel>
             </TotalContainer>
         </>
     );

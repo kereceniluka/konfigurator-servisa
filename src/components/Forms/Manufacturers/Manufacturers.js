@@ -28,7 +28,7 @@ const Manufacturers = () => {
     return (
         <FormControl className={classes.formControl} component="fieldset">
             <RadioForm aria-label="manufacturer" name="manufacturer" value={state.manufacturer} onChange={handleChange}>
-                {manufacturers.map(({ id, name }) => <FormControlLabel key={id} value={name} control={<Radio />} label={name} />)}
+                {manufacturers.map(({ id, name }) => <FormControlLabel key={id} value={name} control={<Radio color="primary" />} label={name} />)}
             </RadioForm>
         </FormControl>
     );
